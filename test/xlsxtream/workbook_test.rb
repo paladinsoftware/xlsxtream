@@ -50,7 +50,7 @@ module Xlsxtream
     def test_workbook_with_sheet
       iow_spy = io_wrapper_spy
       Workbook.open(iow_spy) do |wb|
-        wb.add_worksheet
+        wb.add_worksheet.close
       end
       expected = {
         'xl/worksheets/sheet1.xml' =>
@@ -153,8 +153,8 @@ module Xlsxtream
     def test_write_multiple_worksheets
       iow_spy = io_wrapper_spy
       Workbook.open(iow_spy) do |wb|
-        wb.write_worksheet
-        wb.write_worksheet
+        wb.write_worksheet.close
+        wb.write_worksheet.close
       end
 
       expected = {
