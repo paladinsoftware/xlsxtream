@@ -73,7 +73,9 @@ module Xlsxtream
       @io.add_file "xl/worksheets/sheet#{sheet_id}.xml"
 
       worksheet = Worksheet.new(@io, :sst => sst, :auto_format => auto_format, :columns => columns)
-      yield worksheet if block_given?
+      return worksheet unless block_given?
+
+      yield worksheet
       worksheet.close
 
       nil

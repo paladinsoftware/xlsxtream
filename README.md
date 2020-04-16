@@ -78,6 +78,11 @@ xlsx.write_worksheet(name: 'SheetWithAutoFormat', auto_format: true) do |sheet|
   sheet << ['true', '11.85', '2050-01-01T12:00', '1984-01-01']
 end
 
+# It can be also used without a block. Remember to manually close the worksheet when you are done.
+worksheet = xls.write_worksheet(name: 'SheetWithoutBlock')
+worksheet << ['some', 'data']
+worksheet.close
+
 # Writes metadata and ZIP archive central directory
 xlsx.close
 # Close IO object
