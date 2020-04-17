@@ -51,15 +51,12 @@ module Xlsxtream
           xml << %Q{<c r="#{cid}" s="#{DATE_STYLE}"><v>#{date_to_oa_date(value)}</v></c>}
         else
           value = value.to_s
+          value = value.encode(ENCODING) if value.encoding != ENCODING
 
-          unless value.empty? # no xml output for for empty strings
-            value = value.encode(ENCODING) if value.encoding != ENCODING
-
-            if @sst
-              xml << %Q{<c r="#{cid}" t="s"><v>#{@sst[value]}</v></c>}
-            else
-              xml << %Q{<c r="#{cid}" t="inlineStr"><is><t>#{XML.escape_value(value)}</t></is></c>}
-            end
+          if @sst
+            xml << %Q{<c r="#{cid}" t="s"><v>#{@sst[value]}</v></c>}
+          else
+            xml << %Q{<c r="#{cid}" t="inlineStr"><is><t>#{XML.escape_value(value)}</t></is></c>}
           end
         end
       end
